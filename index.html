@@ -1,0 +1,56 @@
+<html>
+
+<head>
+<title>Currency Converter App</title>
+<style>
+	*
+	{	font-size:40px;font-family:Cambria;	}
+	body
+	{	
+		background-color: azure;
+		}
+	h2
+	{ width:70%;
+	border: solid;
+	border-radius:40px;}
+</style>	
+</head>
+
+<body>
+<center>
+	<h1CC App </h1>
+	<form onsubmit="conv()">
+	<input type="number" placeholder="enter amount" id="amt"/>
+	<br/>
+	<input type="submit" placeholder="Convert"/>
+	<h2 id="msg"/>
+
+<script>
+		function conv()
+		{
+			event.preventDefault();
+			let msg=document.getElementById("msg");
+			let amt=document.getElementById("amt");
+			
+			let url="https://api.exchangerate-api.com/v4/latest/USD";
+			fetch(url)
+			.then(res => res.json())
+			.then(data=>{
+				let Dollar=data.rates.INR;
+				let aid=parseFloat(amt.value);
+				let air=aid*Dollar;
+				let ans="₹"+air.toFixed(2);
+				msg.innerHTML=ans;	
+			})
+			
+			.catch(err=> msg.innerHTML="issue"+err);
+		}
+					
+			
+	
+</script>
+</center>
+
+</body>
+
+</html>
